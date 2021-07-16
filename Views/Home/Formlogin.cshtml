@@ -1,0 +1,49 @@
+﻿@model CursoMVC.Models.Usuario
+
+@{
+    ViewData["Title"] = "Tela de Login";
+    Layout = "_LayoutLogin";
+}
+@using (Html.BeginForm("Formlogin", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken() // previne o ataque CSRF
+    @Html.ValidationSummary(true)
+   if (@ViewBag.Message != null)
+    {
+        <div style="border:1px solid red">
+            @ViewBag.Message
+        </div>
+    }
+    <div class="parent-login">
+        <div class="parent-inner">
+
+            <div class="box-login">
+                <h1>Login MVC Curso</h1>
+                @Html.ValidationMessage("CustomError")
+                <fieldset>
+                    <div class="form-group ls-login-user">
+                        <label for="userLogin">Usuário</label>
+
+                        @Html.TextBoxFor(a => a.UserName, new { @class = "form-control ls-login-bg-user input-lg", @id = "userLogin", @type = "text", @placeholder = "Usuário" })
+                        @Html.ValidationMessageFor(a => a.UserName)
+                    </div>
+
+                    <div class="form-group ls-login-password">
+                        <label for="userPassword">Senha</label>
+                        @Html.PasswordFor(a => a.UserSenha, new { @class = "form-control ls-login-bg-password input-lg", @id = "userPassword", @type = "password", @placeholder = "Senha" })
+                        @Html.ValidationMessageFor(a => a.UserSenha)
+                    </div>
+                    <input type="submit" value="Login" class="btn btn-primary btn-lg btn-block">
+
+
+                </fieldset>
+
+            </div>
+
+            </div>
+    </div>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
